@@ -34,7 +34,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-success me-2">Salvar Tarefa</button>
+                    <button type="submit" class="btn btn-success me-10">Salvar Tarefa</button>
                     
                     <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Voltar</a>
                 </form>
@@ -54,18 +54,43 @@
                         {{ $task->title }}
                     </span>
 
-                    <div>
-                        <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-sm btn-outline-info me-2">Editar</a>
+                    <div class="d-flex align-items-center">
 
-                        <form method="POST" action="{{ route('tasks.destroy', $task->id) }}" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-outline-danger" 
-                                onclick="return confirm('Tem certeza que deseja excluir a tarefa: {{ $task->title }}?')">
-                                Excluir
-                            </button>
-                        </form>
-                    </div>
+    {{-- Editar --}}
+    <a href="{{ route('tasks.edit', $task->id) }}"
+       class="btn btn-sm btn-outline-info me-2">
+        Editar
+    </a>
+
+    {{-- Concluir --}}
+    @if(!$task->is_completed)
+        <form method="POST"
+              action="{{ route('tasks.complete', $task->id) }}"
+              class="me-2">
+            @csrf
+            @method('PUT')
+            <button type="submit"
+                class="btn btn-sm btn-outline-success"
+                onclick="return confirm('Marcar como concluída a tarefa: {{ $task->title }}?')">
+                Concluir
+            </button>
+        </form>
+    @endif
+
+    {{-- Excluir --}}
+    <form method="POST"
+          action="{{ route('tasks.destroy', $task->id) }}">
+        @csrf
+        @method('DELETE')
+        <button type="submit"
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Excluir a tarefa: {{ $task->title }}?')">
+            Excluir
+        </button>
+    </form>
+
+</div>
+
                 </li>
             @empty
                 <li class="list-group-item">Nenhuma tarefa cadastrada.</li>

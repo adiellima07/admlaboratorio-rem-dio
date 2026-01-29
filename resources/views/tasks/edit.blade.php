@@ -24,8 +24,11 @@
                     </div>
 
                     <div class="mb-3 form-check">
+                        <input type="hidden" name="is_completed" value="0">
+                        
                         <input type="checkbox" class="form-check-input" id="is_completed" 
                                name="is_completed" value="1" {{ $task->is_completed ? 'checked' : '' }}>
+                               
                         <label class="form-check-label" for="is_completed">Tarefa Concluída?</label>
                     </div>
 

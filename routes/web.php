@@ -8,3 +8,6 @@ Route::get('/', function () {
 });
 
 Route::resource('tasks', TaskController::class);
+
+Route::put('/tasks/{task}/complete', [TaskController::class, 'complete'])
+    ->name('tasks.complete');
